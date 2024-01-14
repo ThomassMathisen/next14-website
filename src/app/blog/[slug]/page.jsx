@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import PostUser from "@/components/postUser/postUser";
 
 const getData = async (slug) => {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${slug}`);
+  const res = await fetch(`http://localhost:3000/api/blog/${slug}`);
 
   if (!res.ok) {
     throw new Error("Something went wrong");
@@ -20,7 +20,7 @@ const SinglePostPage = async ({ params }) => {
   return (
     <div className={styles.container}>
       <div className={styles.imgContainer}>
-        <Image src="/noavatar.png" alt="" fill className={styles.img} />
+        <Image src={post.img} alt="" fill className={styles.img} />
       </div>
       <div className={styles.textContainer}>
         <h1 className={styles.title}>{post.title}</h1>
@@ -32,10 +32,12 @@ const SinglePostPage = async ({ params }) => {
           )}
           <div className={styles.detailText}>
             <span className={styles.detailTitle}>Published</span>
-            <span className={styles.detailValue}>01.01.2024</span>
+            <span className={styles.detailValue}>
+              {post.createdAt.toString()}
+            </span>
           </div>
         </div>
-        <div className={styles.content}>{post.body}</div>
+        <div className={styles.content}>{post.desc}</div>
       </div>
     </div>
   );
